@@ -14,9 +14,8 @@ module.exports = async () => {
 	try {
 		await sequelize.authenticate();
 		logger.info('Database connection has been established successfully.'.green);
-		
-		// sequelize.sync({ alter: true })
-		sequelize.sync({ force: true})
+		sequelize.sync({ alter: true })
+		// sequelize.sync({ force: true})
 	} catch (err) {
 		logger.error(`Unable to connect to the database: ${err}`.red);
 	}
