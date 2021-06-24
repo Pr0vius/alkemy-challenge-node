@@ -1,10 +1,9 @@
 const express = require("express");
 const morgan = require("morgan");
-const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
+const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
 const config = require("../../config/index");
 const logger = require("../logger/winston.logger");
-
 
 class ExpressServer {
     constructor() {
@@ -35,16 +34,20 @@ class ExpressServer {
         );
 
         this.app.use(
-            `${this.basePath}/auth`,
-            require('../../routes/auth.routes')
-        )
-        
-        this.app.use(require('../../routes/404.routes'));
+            `${this.basePath}/characters`,
+            require("../../routes/character.routes")
+        );
 
+        this.app.use(
+            `${this.basePath}/auth`,
+            require("../../routes/auth.routes")
+        );
+
+        this.app.use(require("../../routes/404.routes"));
     }
 
-    _errorhandler(){
-        this.app.use(require('../../middlewares/errorHandler'))
+    _errorhandler() {
+        this.app.use(require("../../middlewares/errorHandler"));
     }
 
     _swagger() {
