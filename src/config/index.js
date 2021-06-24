@@ -8,6 +8,12 @@ if (!envFound) {
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
+if(process.env.LOGGING === 'true') {
+    process.env.LOGGING = true
+} else{
+    process.env.LOGGING = false
+}
+
 module.exports = {
     port: process.env.PORT,
     api: {
@@ -26,10 +32,10 @@ module.exports = {
         host: process.env.DB_HOST || "127.0.0.1",
         port: process.env.DB_PORT || 3306,
         dialect: process.env.DB_DIALECT || "mysql",
-        logging: process.env.LOGGING || false
+        logging: false
     },
     webtoken:{
-        secret: process.env.JWT_SECRET,
-        expires: process.env.JWT_EXPIRES
+        secret: process.env.JWT_SECRET || "secret",
+        expires: process.env.JWT_EXPIRES || "1d"
     }
 };
