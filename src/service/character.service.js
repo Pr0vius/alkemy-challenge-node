@@ -6,16 +6,16 @@ exports.findAll = async () => {
     return await repository.findAll();
 };
 exports.findById = async (id) => {
-    return await repository.findCharacterById(id);
+    return await repository.findById(id);
 };
 
 exports.create = async (character) => {
-    return repository.createCharacter(character);
+    return repository.create(character);
 };
 
 exports.update = async (id, character) => {
-    return repository.updateCharacter(id, character);
+    return repository.update(id, character);
 };
 exports.remove = async (id) => {
-    return repository.deleteCharacter(id);
+    return repository.delete(id);
 };
