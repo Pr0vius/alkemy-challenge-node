@@ -5,7 +5,7 @@ class GenreRepository{
     constructor(){}
 
     async findAll() {
-        return await GenreSchema.findAll()
+        return await GenreSchema.findAll();
     }
 
     async findById(id) {
