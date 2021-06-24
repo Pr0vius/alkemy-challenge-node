@@ -11,9 +11,11 @@ const Genre = require("../service/genre.service");
  */
 exports.getAllGenres = async (req, res, next) => {
     try {
-        res.json(Success(await Genre.findAll()));
+        const genreList = await Genre.findAll();
+
+        res.json(new Success(genreList, 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't find the genre list", 400, err));
     }
 };
 
@@ -26,7 +28,7 @@ exports.getAllGenres = async (req, res, next) => {
 exports.createGenre = async (req, res, next) => {
     const genre = ({} = req.body);
     try {
-        res.json(Success(await Genre.create(genre)));
+        res.json(new Success(await Genre.create(genre)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -40,7 +42,7 @@ exports.createGenre = async (req, res, next) => {
  */
 exports.getGenreById = async (req, res, next) => {
     try {
-        res.json(Success(await Genre.findById(req.params.id)));
+        res.json(new Success(await Genre.findById(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -55,7 +57,7 @@ exports.getGenreById = async (req, res, next) => {
 exports.updateGenre = async (req, res, next) => {
     const genre = ({} = req.body);
     try {
-        res.json(Success(await Genre.update(req.params.id, genre)));
+        res.json(new Success(await Genre.update(req.params.id, genre)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -69,7 +71,7 @@ exports.updateGenre = async (req, res, next) => {
  */
 exports.deleteGenre = async (req, res, next) => {
     try {
-        res.json(Success(await Genre.remove(req.params.id)));
+        res.json(new Success(await Genre.remove(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }

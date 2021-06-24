@@ -11,7 +11,7 @@ const Character = require("../service/character.service");
  */
 exports.getAllCharacters = async (req, res, next) => {
     try {
-        res.json(Success(await Character.findAll()));
+        res.json(new Success(await Character.findAll()));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -26,7 +26,7 @@ exports.getAllCharacters = async (req, res, next) => {
 exports.createCharacter = async (req, res, next) => {
     const char = ({} = req.body);
     try {
-        res.json(Success(await Character.create(char)));
+        res.json(new Success(await Character.create(char)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -40,7 +40,7 @@ exports.createCharacter = async (req, res, next) => {
  */
 exports.getCharacterById = async (req, res, next) => {
     try {
-        res.json(Success(await Character.findById(req.params.id)));
+        res.json(new Success(await Character.findById(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -55,7 +55,7 @@ exports.getCharacterById = async (req, res, next) => {
 exports.updateCharacter = async (req, res, next) => {
     const char = ({} = req.body);
     try {
-        res.json(Success(await Character.update(req.params.id, char)));
+        res.json(new Success(await Character.update(req.params.id, char)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -69,7 +69,7 @@ exports.updateCharacter = async (req, res, next) => {
  */
 exports.deleteCharacter = async (req, res, next) => {
     try {
-        res.json(Success(await Character.remove(req.params.id)));
+        res.json(new Success(await Character.remove(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }

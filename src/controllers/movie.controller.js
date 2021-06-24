@@ -11,7 +11,8 @@ const Movie = require("../service/movie.service");
  */
 exports.getAllMovies = async (req, res, next) => {
     try {
-        res.json(Success(await Movie.findAll()));
+        const movieList = await Movie.findAll();
+        res.json(new Success(movieList, 200));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -26,7 +27,7 @@ exports.getAllMovies = async (req, res, next) => {
 exports.createMovie = async (req, res, next) => {
     const movie = ({} = req.body);
     try {
-        res.json(Success(await Movie.create(movie)));
+        res.json(new Success(await Movie.create(movie), 201));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -40,7 +41,7 @@ exports.createMovie = async (req, res, next) => {
  */
 exports.getMovieById = async (req, res, next) => {
     try {
-        res.json(Success(await Movie.findById(req.params.id)));
+        res.json(new Success(await Movie.findById(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -55,7 +56,7 @@ exports.getMovieById = async (req, res, next) => {
 exports.updateMovie = async (req, res, next) => {
     const movie = ({} = req.body);
     try {
-        res.json(Success(await Movie.update(req.params.id, movie)));
+        res.json(new Success(await Movie.update(req.params.id, movie)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
@@ -69,7 +70,7 @@ exports.updateMovie = async (req, res, next) => {
  */
 exports.deleteMovie = async (req, res, next) => {
     try {
-        res.json(Success(await Movie.remove(req.params.id)));
+        res.json(new Success(await Movie.remove(req.params.id)));
     } catch (err) {
         next(new ErrorResponse("ErrorMessage", 400, err));
     }
