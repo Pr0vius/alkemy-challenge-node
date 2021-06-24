@@ -10,15 +10,16 @@ User.init(
         role: {
             type: DataTypes.ENUM({ values: ["USER_ROLE", "ADMIN_ROLE"] }),
             defaultValue: "USER_ROLE",
+            allowNull: false
         },
         firstname: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
             validate: { is: /^[a-z ,.'-]+$/i },
         },
         lastname: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
             validate: { is: /^[a-z ,.'-]+$/i },
         },
         username: {
