@@ -13,9 +13,6 @@ exports.findByEmail = async (email) => {
 exports.create = async (user) => {
     return repository.createUser(user);
 };
-exports.findOne = async (id) => {
-    return await repository.findUserById(id);
-};
 exports.update = async (id, user) => {
     return repository.updateUser(id, user);
 };
