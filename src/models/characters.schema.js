@@ -14,6 +14,7 @@ Characters.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     image_url: {
       type: DataTypes.STRING,
@@ -21,11 +22,11 @@ Characters.init(
     },
     age: {
       type: DataTypes.FLOAT.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
     },
     weight: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     history: {
       type: DataTypes.TEXT,
