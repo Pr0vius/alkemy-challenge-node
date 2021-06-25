@@ -7,16 +7,23 @@ const {
     updateCharacter,
     deleteCharacter
 } = require('../controllers/character.controller');
+const {
+    getCharListValidations,
+    getCharByIdValidations,
+    postCharValidations,
+    putCharValidations,
+    deleteCharValidations
+} = require('../middlewares/validations/characters/validations');
 
 router
     .route("/")
-    .get(getAllCharacters)
-    .post(createCharacter)
+    .get(getCharListValidations, getAllCharacters)
+    .post(postCharValidations, createCharacter)
 ;
 router
     .route("/:id")
-    .get(getCharacterById)
-    .put(updateCharacter)
-    .delete(deleteCharacter)
+    .get(getCharByIdValidations, getCharacterById)
+    .put(putCharValidations, updateCharacter)
+    .delete(deleteCharValidations, deleteCharacter)
 ;
 module.exports = router
