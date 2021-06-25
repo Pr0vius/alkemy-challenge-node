@@ -12,9 +12,9 @@ const Movie = require("../service/movie.service");
 exports.getAllMovies = async (req, res, next) => {
     try {
         const movieList = await Movie.findAll();
-        res.json(new Success(movieList, 200));
+        res.status(200).json(new Success(movieList, 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Find the Movie List", 404, err));
     }
 };
 
@@ -25,11 +25,12 @@ exports.getAllMovies = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.createMovie = async (req, res, next) => {
-    const movie = ({} = req.body);
+    const movie = ({ image_url, name, createdAt, rating } = req.body);
     try {
-        res.json(new Success(await Movie.create(movie), 201));
+        const newMovie = await Movie.create(movie);
+        res.status(201).json(new Success(newMovie, 201));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Create the Movie ", 401, err));
     }
 };
 
@@ -41,9 +42,10 @@ exports.createMovie = async (req, res, next) => {
  */
 exports.getMovieById = async (req, res, next) => {
     try {
-        res.json(new Success(await Movie.findById(req.params.id)));
+        const movie = await Movie.findById(req.params.id);
+        res.status(200).json(new Success(movie, 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Find the Movie", 404, err));
     }
 };
 
@@ -54,11 +56,12 @@ exports.getMovieById = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.updateMovie = async (req, res, next) => {
-    const movie = ({} = req.body);
+    const movie = ({ image_url, name, createdAt, rating } = req.body);
     try {
-        res.json(new Success(await Movie.update(req.params.id, movie)));
+        await Movie.update(req.params.id, movie);
+        res.status(201).json(new Success("Movie Updated", 201));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Update the Movie", 401, err));
     }
 };
 
@@ -70,8 +73,9 @@ exports.updateMovie = async (req, res, next) => {
  */
 exports.deleteMovie = async (req, res, next) => {
     try {
-        res.json(new Success(await Movie.remove(req.params.id)));
+        await Movie.remove(req.params.id);
+        res.status(200).json(new Success("User Deleted", 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Delete the Movie", 400, err));
     }
 };

@@ -18,7 +18,7 @@ exports.getAllUsers = async (req, res, next) => {
         }
         const userList = await User.findAll();
 
-        res.json(new Success(userList, 200));
+        res.status(200).json(new Success(userList, 200));
     } catch (err) {
         next(
             new ErrorResponse(`Can't find the user list`, 404, err)
@@ -45,12 +45,9 @@ exports.createUser = async (req, res, next) => {
 
         const newUser = await User.create(user);
         
-        res.status(201).json({
-            status: 200,
-            data: newUser,
-        });
+        res.status(201).json(new Success(newUser, 201));
     } catch (err) {
-        next(new ErrorResponse(`Can't create user`, 400, err));
+        next(new ErrorResponse(`Can't create user`, 401, err));
     }
 };
 
@@ -64,10 +61,7 @@ exports.getUser = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.id);
         
-        res.status(200).json({
-            status: 200,
-            data: user,
-        });
+        res.status(200).json(new Success(user, 200));
     } catch (err) {
         next(new ErrorResponse(`Can't find the user id`, 404, err));
     }
@@ -92,12 +86,9 @@ exports.updateUser = async (req, res, next) => {
 
         await User.update(req.params.id, user);
 
-        res.status(201).json({
-            status: 200,
-            data: "User Updated",
-        });
+        res.status(201).json(new Success('User Updated', 201));
     } catch (err) {
-        next(new ErrorResponse(`Can't update user`, 400, err));
+        next(new ErrorResponse(`Can't update user`, 401, err));
     }
 };
 
@@ -110,10 +101,7 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
     try {
         await User.remove(req.params.id);
-        res.status(200).json({
-            status: 200,
-            message: `User deleted`,
-        });
+        res.status(200).json(new Success("User Deleted", 200));
     } catch (err) {
         next(new ErrorResponse(`Can't delete user`, 400, err));
     }

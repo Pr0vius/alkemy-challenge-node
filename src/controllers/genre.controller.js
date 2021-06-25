@@ -13,9 +13,9 @@ exports.getAllGenres = async (req, res, next) => {
     try {
         const genreList = await Genre.findAll();
 
-        res.json(new Success(genreList, 200));
+        res.status(200).json(new Success(genreList, 200));
     } catch (err) {
-        next(new ErrorResponse("Couldn't find the genre list", 400, err));
+        next(new ErrorResponse("Couldn't find the genre list", 404, err));
     }
 };
 
@@ -26,11 +26,12 @@ exports.getAllGenres = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.createGenre = async (req, res, next) => {
-    const genre = ({} = req.body);
+    const genre = ({name, image_url} = req.body);
     try {
-        res.json(new Success(await Genre.create(genre)));
+        const newGenre = await Genre.create(genre);
+        res.status(201).json(new Success(newGenre,201));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Create the Genre", 401, err));
     }
 };
 
@@ -42,9 +43,10 @@ exports.createGenre = async (req, res, next) => {
  */
 exports.getGenreById = async (req, res, next) => {
     try {
-        res.json(new Success(await Genre.findById(req.params.id)));
+        const genre = await Genre.findById(req.params.id)
+        res.status(200).json(new Success(genre, 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Get the Genre", 404, err));
     }
 };
 
@@ -55,11 +57,13 @@ exports.getGenreById = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.updateGenre = async (req, res, next) => {
-    const genre = ({} = req.body);
+    const genre = ({name, image_url} = req.body);
     try {
-        res.json(new Success(await Genre.update(req.params.id, genre)));
+        await Genre.update(req.params.id, genre);
+
+        res.status(201).json(new Success("Genre Updated, 201"));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Update the Genre", 401, err));
     }
 };
 
@@ -71,8 +75,9 @@ exports.updateGenre = async (req, res, next) => {
  */
 exports.deleteGenre = async (req, res, next) => {
     try {
-        res.json(new Success(await Genre.remove(req.params.id)));
+        await Genre.remove(req.params.id)
+        res.status(200).json(new Success('Genre Deleted',200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Delete the Genre", 400, err));
     }
 };

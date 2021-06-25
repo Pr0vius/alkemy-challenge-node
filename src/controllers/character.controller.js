@@ -11,9 +11,9 @@ const Character = require("../service/character.service");
  */
 exports.getAllCharacters = async (req, res, next) => {
     try {
-        res.json(new Success(await Character.findAll()));
+        res.status(200).json(new Success(await Character.findAll(), 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Find the Character List", 404, err));
     }
 };
 
@@ -24,11 +24,12 @@ exports.getAllCharacters = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.createCharacter = async (req, res, next) => {
-    const char = ({} = req.body);
+    const char = ({name, image_url, age, weight, history} = req.body);
     try {
-        res.json(new Success(await Character.create(char)));
+        const newUsr = await Character.create(char)
+        res.status(201).json(new Success(newUsr, 201));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Create the Character", 401, err));
     }
 };
 
@@ -40,9 +41,10 @@ exports.createCharacter = async (req, res, next) => {
  */
 exports.getCharacterById = async (req, res, next) => {
     try {
-        res.json(new Success(await Character.findById(req.params.id)));
+        const character = await Character.findById(req.params.id)
+        res.status(200).json(new Success(character,200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Find the Character", 404, err));
     }
 };
 
@@ -53,11 +55,12 @@ exports.getCharacterById = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.updateCharacter = async (req, res, next) => {
-    const char = ({} = req.body);
+    const char = ({name, image_url, age, weight, history} = req.body);
     try {
-        res.json(new Success(await Character.update(req.params.id, char)));
+        await Character.update(req.params.id, char)
+        res.status(201).json(new Success("Character Updated", 201));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Update the Character", 401, err));
     }
 };
 
@@ -69,8 +72,9 @@ exports.updateCharacter = async (req, res, next) => {
  */
 exports.deleteCharacter = async (req, res, next) => {
     try {
-        res.json(new Success(await Character.remove(req.params.id)));
+        await Character.remove(req.params.id)
+        res.status(200).json(new Success("Character Deleted", 200));
     } catch (err) {
-        next(new ErrorResponse("ErrorMessage", 400, err));
+        next(new ErrorResponse("Couldn't Delete the Character", 400, err));
     }
 };
