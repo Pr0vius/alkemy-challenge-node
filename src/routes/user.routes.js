@@ -13,7 +13,7 @@ const {
     postUserValidations,
     putUserValidations,
     deleteUserValidations,
-} = require("../middlewares/validations/request/validations");
+} = require("../middlewares/validations/users/validations");
 
 router
   .route("/")
