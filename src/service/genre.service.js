@@ -8,6 +8,9 @@ exports.findAll = async () => {
 exports.findById = async (id) => {
     return await repository.findById(id);
 };
+exports.findByName = async (name) => {
+    return await repository.findByName(name);
+};
 exports.create = async (genre) => {
     return repository.create(genre);
 };

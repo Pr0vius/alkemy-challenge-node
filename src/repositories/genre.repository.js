@@ -12,6 +12,10 @@ class GenreRepository{
         return await GenreSchema.findByPk(id)
     }
 
+    async findByName(name) {
+        return await GenreSchema.findOne({where: { name }})
+    }
+
     async create(genre){
         return await GenreSchema.create(genre);
     }
