@@ -43,12 +43,14 @@ class ExpressServer {
             `${this.basePath}/movies`,
             require("../../routes/movie.routes")
         );
+        
+        this.app.use(`${this.basePath}/associate`, require('../../routes/assiociations.routes'))
 
         this.app.use(
             `${this.basePath}/genres`,
             require("../../routes/genre.routes")
         );
-
+        
         this.app.use(
             `${this.basePath}/auth`,
             require("../../routes/auth.routes")
