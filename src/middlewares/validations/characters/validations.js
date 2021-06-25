@@ -1,36 +1,38 @@
-const {check} = require('express-validator');
+const { check } = require("express-validator");
 const { validateJWT, hasRole } = require("../auth/validations");
-const characterService = require('../../../service/character.service');
 const { ADMIN_ROLE } = require("../../../constants/index");
-const {
-    idRequired,
-    validResult, 
-    roleValid
-} = require('../commons');
-const ErrorResponse = require("../../../helpers/errorResponse");
+const { idRequired, validResult, roleValid } = require("../commons");
+const { charNameUniqueFunction, characterIdExistFunction } = require("../customFunctions");
+
+const _idExist = check("id").custom(characterIdExistFunction);
+const _nameRequired = check("name", "Name is required")
+    .not()
+    .isEmpty()
+;
+const _nameIsUnique = check("name").custom(charNameUniqueFunction);
+const _imageRequired = check("image_url", "Image is required")
+    .not()
+    .isEmpty()
+;
+const _imageType = check("image_url", "Image must be an URL").isURL();
+const _ageIsNumeric = check("age", "Age must be a number")
+    .optional()
+    .isNumeric()
+;
+const _weigthIsNumeric = check("weigth", "Must be a number")
+    .optional()
+    .isNumeric()
+;
+const _historyRequired = check("history", "History is required")
+    .not()
+    .isEmpty()
+;
 
 
-const _nameRequired = check('name', 'Name is required').not().isEmpty();
-const _nameIsUnique = check('name').custom(
-    async (name = '') => {
-        const charFound = await characterService.findByName(name);
-        if(charFound) {
-            throw new ErrorResponse( "Character Already Exist", 400);
-        }
-    }
-);
-const _imageRequired = check('image_url', 'Image is required').not().isEmpty();
-const _imageType = check('image_url', "Image must be an URL").isURL()
-const _ageIsNumeric = check('age', "Age must be a number").optional().isNumeric();
-const _weigthIsNumeric = check('weigth', "Must be a number").optional().isNumeric();
-const _historyRequired = check('history', "History is required").not().isEmpty();
-
-const getCharListValidations = [
-    validResult,
-]
+const getCharListValidations = [validResult];
 const getCharByIdValidations = [
     idRequired,
-    // _idExist,
+    _idExist,
     validResult,
 ];
 
@@ -49,14 +51,14 @@ const postCharValidations = [
 const putCharValidations = [
     validateJWT,
     idRequired,
-    // _idExist,
+    _idExist,
     validResult,
 ];
 const deleteCharValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    // _idExist,
+    _idExist,
     roleValid,
     validResult,
 ];
@@ -66,5 +68,5 @@ module.exports = {
     getCharByIdValidations,
     postCharValidations,
     putCharValidations,
-    deleteCharValidations
+    deleteCharValidations,
 };

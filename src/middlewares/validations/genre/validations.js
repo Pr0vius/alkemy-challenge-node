@@ -1,33 +1,27 @@
 const {check} = require('express-validator');
 const { validateJWT, hasRole } = require("../auth/validations");
-const genreService = require('../../../service/genre.service');
+const { genreIdExistFunction, genreUniqueFunction } = require('../customFunctions/index');
 const { ADMIN_ROLE } = require("../../../constants/index");
 const {
     idRequired,
     validResult, 
     roleValid
 } = require('../commons');
-const ErrorResponse = require("../../../helpers/errorResponse");
 
 
-const _nameRequired = check('name', 'Name is required').not().isEmpty();
-const _nameIsUnique = check('name').custom(
-    async (name = '') => {
-        const genreFound = await genreService.findByName(name);
-        if(genreFound) {
-            throw new ErrorResponse("Genre Already Exist", 400);
-        }
-    }
-);
-const _imageRequired = check('image_url', 'Image is required').not().isEmpty();
+const _nameRequired = check('name', 'Name is required')
+    .not()
+    .isEmpty()
+;
+const _nameIsUnique = check('name').custom(genreUniqueFunction);
+const _imageRequired = check('image_url', 'Image is required')
+    .not()
+    .isEmpty()
+;
 const _imageType = check('image_url', "Image must be an URL").isURL()
+const _idExist = check("id").custom(genreIdExistFunction);
 
-const _idExist = check("id").custom(async (id = "") => {
-    const genreFound = await genreService.findById(id);
-    if (!genreFound) {
-        throw new ErrorResponse("The id doesn't exist", 400);
-    }
-});
+
 
 const getGenreListValidations = [
     validResult,
