@@ -11,7 +11,7 @@ Movie.init(
       autoIncrement: true,
     },
     image_url: { type: DataTypes.STRING, allowNull: false },
-    name: { type: DataTypes.STRING(50), allowNull: false },
+    name: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     createdAt: { type: DataTypes.DATEONLY, allowNull: false },
     rating: { type: DataTypes.INTEGER({length:5}).UNSIGNED.ZEROFILL, allowNull: false, },
   },
