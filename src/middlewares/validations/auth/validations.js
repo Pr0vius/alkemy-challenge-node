@@ -48,7 +48,9 @@ const hasRole = (...roles) => {
         try {
             validateRole(req.user, ...roles);
             next();
-        } catch (err) {}
+        } catch (err) {
+            next(new ErrorResponse("User Unauthorized", 400, err));
+        }
     };
 };
 module.exports = {

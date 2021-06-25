@@ -10,7 +10,7 @@ const emailExistFunction = async (email = "") => {
 };
 
 const roleValidFunction = async (role = "") => {
-    if (!ROLES.include(role)) {
+    if (!ROLES.includes(role)) {
         throw new ErrorResponse("Invalid Role", 400);
     }
 };
