@@ -25,7 +25,7 @@ exports.getAllMovies = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.createMovie = async (req, res, next) => {
-    const movie = ({ image_url, name, createdAt, rating } = req.body);
+    const movie = ({ image_url, name, releaseDate, rating } = req.body);
     try {
         const newMovie = await Movie.create(movie);
         res.status(201).json(new Success(newMovie, 201));
@@ -56,7 +56,7 @@ exports.getMovieById = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.updateMovie = async (req, res, next) => {
-    const movie = ({ image_url, name, createdAt, rating } = req.body);
+    const movie = ({ image_url, name, releaseDate, rating } = req.body);
     try {
         await Movie.update(req.params.id, movie);
         res.status(201).json(new Success("Movie Updated", 201));
