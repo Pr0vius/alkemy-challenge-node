@@ -27,7 +27,7 @@ const roleValidFunction = async (role = "") => {
 const characterIdExistFunction = async (id = "") => {
     const charFound = await characterService.findById(id);
     if (!charFound) {
-        throw new ErrorResponse("The id doesn't exist", 400);
+        throw new ErrorResponse("The Character id doesn't exist", 400);
     }
 };
 const charNameUniqueFunction = async (name = '') => {
@@ -43,12 +43,12 @@ const charNameUniqueFunction = async (name = '') => {
 const movieIdExistFunction = async (id = "") => {
     const movieFound = await movieService.findById(id);
     if (!movieFound) {
-        throw new ErrorResponse("The id doesn't exist", 400);
+        throw new ErrorResponse("The Movie id doesn't exist", 400);
     }
 }
 
-const movieNameUniqueFunction = async (name = "") => {
-    const movieFound = await movieService.findByName(name);
+const movieNameUniqueFunction = async (title = "") => {
+    const movieFound = await movieService.findByName(title);
     if (movieFound) {
         throw new ErrorResponse("Movie Already Exist", 400);
     }
@@ -59,7 +59,7 @@ const movieNameUniqueFunction = async (name = "") => {
 const genreIdExistFunction = async (id = "") => {
     const genreFound = await genreService.findById(id);
     if (!genreFound) {
-        throw new ErrorResponse("The id doesn't exist", 400);
+        throw new ErrorResponse("The Genre id doesn't exist", 400);
     }
 }
 
