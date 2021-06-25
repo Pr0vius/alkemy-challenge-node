@@ -1,6 +1,6 @@
 const {check} = require('express-validator');
 const { validateJWT, hasRole } = require("../auth/validations");
-const characterService = require('../../../service/character.service');
+const genreService = require('../../../service/genre.service');
 const { ADMIN_ROLE } = require("../../../constants/index");
 const {
     idRequired,
@@ -14,9 +14,9 @@ const ErrorResponse = require("../../../helpers/errorResponse");
 const _nameRequired = check('name', 'Name is required').not().isEmpty();
 const _nameIsUnique = check('name').custom(
     async (name = '') => {
-        const charFound = await characterService.findByName(name);
-        if(charFound) {
-            throw new ErrorResponse("Couldn't create the char", 400, "Name Already Exist");
+        const genreFound = await genreService.findByName(name);
+        if(genreFound) {
+            throw new ErrorResponse("Genre Already Exist", 400);
         }
     }
 );

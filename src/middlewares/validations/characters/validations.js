@@ -16,7 +16,7 @@ const _nameIsUnique = check('name').custom(
     async (name = '') => {
         const charFound = await characterService.findByName(name);
         if(charFound) {
-            throw new ErrorResponse("Couldn't create the char", 400, "Name Already Exist");
+            throw new ErrorResponse( "Character Already Exist", 400);
         }
     }
 );
