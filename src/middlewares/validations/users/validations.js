@@ -19,19 +19,19 @@ const {
 
 
 const getAllUsersValidations = [
-    // validateJWT,
+    validateJWT,
     validResult,
 ]
 const getUserByIdValidations = [
-    // validateJWT,
+    validateJWT,
     idRequired,
     idExist,
     validResult,
 ];
 
 const postUserValidations = [
-    // validateJWT,
-    // hasRole(ADMIN_ROLE),
+    validateJWT,
+    hasRole(ADMIN_ROLE),
     firstnameRequired,
     lastnameRequired,
     usernameRequired,
@@ -44,8 +44,8 @@ const postUserValidations = [
 ];
 
 const putUserValidations = [
-    // validateJWT,
-    // hasRole(ADMIN_ROLE),
+    validateJWT,
+    hasRole(ADMIN_ROLE),
     idRequired,
     idExist,
     roleValid,
@@ -54,8 +54,8 @@ const putUserValidations = [
     validResult,
 ];
 const deleteUserValidations = [
-    // validateJWT,
-    // hasRole(ADMIN_ROLE),
+    validateJWT,
+    hasRole(ADMIN_ROLE),
     idRequired,
     idExist,
     validResult,
