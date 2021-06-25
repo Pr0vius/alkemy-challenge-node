@@ -7,16 +7,22 @@ const {
     updateGenre,
     deleteGenre
 } = require('../controllers/genre.controller');
-
+const {
+    getGenreListValidations,
+    getGenreByIdValidations,
+    postGenreValidations,
+    putGenreValidations,
+    deleteGenreValidations
+} = require('../middlewares/validations/genre/validations');
 router
     .route("/")
-    .get(getAllGenres)
-    .post(createGenre)
+    .get(getGenreListValidations, getAllGenres)
+    .post(postGenreValidations, createGenre)
 ;
 router
     .route("/:id")
-    .get(getGenreById)
-    .put(updateGenre)
-    .delete(deleteGenre)
+    .get(getGenreByIdValidations, getGenreById)
+    .put(putGenreValidations, updateGenre)
+    .delete(deleteGenreValidations, deleteGenre)
 ;
 module.exports = router
