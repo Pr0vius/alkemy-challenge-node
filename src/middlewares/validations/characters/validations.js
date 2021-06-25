@@ -27,11 +27,9 @@ const _weigthIsNumeric = check('weigth', "Must be a number").optional().isNumeri
 const _historyRequired = check('history', "History is required").not().isEmpty();
 
 const getCharListValidations = [
-    validateJWT,
     validResult,
 ]
 const getCharByIdValidations = [
-    validateJWT,
     idRequired,
     idExist,
     validResult,
