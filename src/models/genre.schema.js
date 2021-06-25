@@ -10,7 +10,7 @@ Genre.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: { type: DataTypes.STRING, allowNull: false },
+    name: { type: DataTypes.STRING, allowNull: false, unique: true },
     image_url: { type: DataTypes.STRING, allowNull: false },
   },
   {
