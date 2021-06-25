@@ -1,10 +1,23 @@
+const { Op } = require("sequelize");
 const CharacterSchema = require("../models/characters.schema");
-
 class CharacterRepository {
     constructor() {}
 
-    async findAll() {
-        return await CharacterSchema.findAll();
+    async findAll({ name, age, weight, movieId }) {
+        let where = {};
+        if (name) {
+            where.name = { [Op.like]: `%${name}%` };
+        }
+        if (age) {
+            where.age = { [Op.like]: `%${age}%` };
+        }
+        if (weight) {
+            where.weight = { [Op.like]: `%${weight}%` };
+        }
+        return await CharacterSchema.findAll({
+            where,
+            attributes: ["name", "image_url"],
+        });
     }
 
     async findById(id) {

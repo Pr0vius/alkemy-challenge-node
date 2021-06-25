@@ -2,8 +2,8 @@ const CharacterRepository = require('../repositories/character.repository');
 
 const repository = new CharacterRepository()
 
-exports.findAll = async () => {
-    return await repository.findAll();
+exports.findAll = async (filter) => {
+    return await repository.findAll(filter);
 };
 exports.findById = async (id) => {
     return await repository.findById(id);

@@ -11,7 +11,8 @@ const Character = require("../service/character.service");
  */
 exports.getAllCharacters = async (req, res, next) => {
     try {
-        res.status(200).json(new Success(await Character.findAll(), 200));
+        const characterList = await Character.findAll(req.query)
+        res.status(200).json(new Success(characterList, 200));
     } catch (err) {
         next(new ErrorResponse("Couldn't Find the Character List", 404, err));
     }
@@ -26,8 +27,8 @@ exports.getAllCharacters = async (req, res, next) => {
 exports.createCharacter = async (req, res, next) => {
     const char = ({name, image_url, age, weight, history} = req.body);
     try {
-        const newUsr = await Character.create(char)
-        res.status(201).json(new Success(newUsr, 201));
+        const newCharacter = await Character.create(char)
+        res.status(201).json(new Success(newCharacter, 201));
     } catch (err) {
         next(new ErrorResponse("Couldn't Create the Character", 401, err));
     }
