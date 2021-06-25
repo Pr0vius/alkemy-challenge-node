@@ -4,8 +4,12 @@ class GenreRepository{
 
     constructor(){}
 
-    async findAll() {
-        return await GenreSchema.findAll();
+    async findAll(filter) {
+        let where = {}
+        if (filter.name) {
+            where.name = filter.name
+        }
+        return await GenreSchema.findAll(where);
     }
 
     async findById(id) {

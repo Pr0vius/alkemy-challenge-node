@@ -2,8 +2,8 @@ const GenreRepository = require('../repositories/genre.repository');
 
 const repository = new GenreRepository()
 
-exports.findAll = async () => {
-    return await repository.findAll();
+exports.findAll = async (filter) => {
+    return await repository.findAll(filter);
 };
 exports.findById = async (id) => {
     return await repository.findById(id);
