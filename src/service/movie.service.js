@@ -2,17 +2,18 @@ const MovieRepository = require('../repositories/movie.repository');
 
 const repository = new MovieRepository()
 
-exports.findAll = async () => {
-    return await repository.findAll();
+exports.findAll = async (filter) => {
+    return await repository.findAll(filter);
 };
 exports.findById = async (id) => {
     return await repository.findById(id);
 };
-exports.findByName = async (name) => {
-    return await repository.findByName(name);
+exports.findByName = async (title) => {
+    return await repository.findByName(title);
 };
 
 exports.create = async (movie) => {
+    movie.releaseDate = new Date(movie.releaseDate);
     return repository.create(movie);
 };
 

@@ -11,7 +11,7 @@ const Movie = require("../service/movie.service");
  */
 exports.getAllMovies = async (req, res, next) => {
     try {
-        const movieList = await Movie.findAll();
+        const movieList = await Movie.findAll(req.query);
         res.status(200).json(new Success(movieList, 200));
     } catch (err) {
         next(new ErrorResponse("Couldn't Find the Movie List", 404, err));
@@ -25,7 +25,7 @@ exports.getAllMovies = async (req, res, next) => {
  * @param {NextFunction} next
  */
 exports.createMovie = async (req, res, next) => {
-    const movie = ({ image_url, name, releaseDate, rating } = req.body);
+    const movie = ({ image_url, title, releaseDate, rating } = req.body);
     try {
         const newMovie = await Movie.create(movie);
         res.status(201).json(new Success(newMovie, 201));
