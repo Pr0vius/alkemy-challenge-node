@@ -4,7 +4,6 @@ const genreService = require('../../../service/genre.service');
 const { ADMIN_ROLE } = require("../../../constants/index");
 const {
     idRequired,
-    idExist,
     validResult, 
     roleValid
 } = require('../commons');
@@ -23,12 +22,19 @@ const _nameIsUnique = check('name').custom(
 const _imageRequired = check('image_url', 'Image is required').not().isEmpty();
 const _imageType = check('image_url', "Image must be an URL").isURL()
 
+const _idExist = check("id").custom(async (id = "") => {
+    const genreFound = await genreService.findById(id);
+    if (!genreFound) {
+        throw new ErrorResponse("The id doesn't exist", 400);
+    }
+});
+
 const getGenreListValidations = [
     validResult,
 ];
 const getGenreByIdValidations = [
     idRequired,
-    idExist,
+    _idExist,
     validResult,
 ];
 
@@ -44,14 +50,14 @@ const postGenreValidations = [
 const putGenreValidations = [
     validateJWT,
     idRequired,
-    idExist,
+    _idExist,
     validResult,
 ];
 const deleteGenreValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    idExist,
+    _idExist,
     roleValid,
     validResult,
 ];

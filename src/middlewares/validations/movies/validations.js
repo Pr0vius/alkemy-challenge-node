@@ -2,7 +2,7 @@ const { check } = require("express-validator");
 const { validateJWT, hasRole } = require("../auth/validations");
 const movieService = require("../../../service/movie.service");
 const { ADMIN_ROLE } = require("../../../constants/index");
-const { idRequired, idExist, validResult, roleValid } = require("../commons");
+const { idRequired, validResult, roleValid } = require("../commons");
 const ErrorResponse = require("../../../helpers/errorResponse");
 
 const _nameRequired = check("name", "Name is required").not().isEmpty();
@@ -20,9 +20,17 @@ const _ratingType = check(
     "Rating Must a number between 1 and 5"
 ).isNumeric().isLength({ min: 0, max: 5 });
 
+const _idExist = check("id").custom(async (id = "") => {
+    const movieFound = await movieService.findById(id);
+    if (!movieFound) {
+        throw new ErrorResponse("The id doesn't exist", 400);
+    }
+});
 
 const getMovieListValidations = [validResult];
-const getMovieByIdValidations = [idRequired, idExist, validResult];
+const getMovieByIdValidations = [idRequired, _idExist, validResult];
+
+
 const postMovieValidations = [
     validateJWT,
     _nameRequired,
@@ -36,14 +44,14 @@ const postMovieValidations = [
 const putMovieValidations = [
     validateJWT,
     idRequired,
-    idExist,
+    _idExist,
     validResult
 ];
 const deleteMovieValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    idExist,
+    _idExist,
     roleValid,
     validResult,
 ];

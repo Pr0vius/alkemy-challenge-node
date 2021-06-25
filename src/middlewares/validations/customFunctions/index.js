@@ -15,14 +15,7 @@ const roleValidFunction = async (role = "") => {
     }
 };
 
-const idExistFunction = async (id = "") => {
-    const userFound = await userService.findById(id);
-    if (!userFound) {
-        throw new AppError("The id doesn't exist", 400);
-    }
-};
 module.exports = {
     emailExistFunction,
     roleValidFunction,
-    idExistFunction,
 };

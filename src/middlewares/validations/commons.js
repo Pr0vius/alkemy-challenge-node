@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 const ErrorResponse = require('../../helpers/errorResponse');
-const { emailExistFunction, roleValidFunction, idExistFunction} = require('./customFunctions/index');
+const { emailExistFunction, roleValidFunction} = require('./customFunctions/index');
 
 const firstnameRequired = check("firstname", "Firstname is required")
     .not()
@@ -37,7 +37,6 @@ const idRequired = check("id")
     .not()
     .isEmpty()
 ;
-const idExist = check("id").custom(idExistFunction);
 const optionalEmailValid = check("email", "Email is invalid")
     .optional()
     .isEmail()
@@ -66,7 +65,6 @@ module.exports = {
     passwordRequired,
     roleValid,
     idRequired,
-    idExist,
     optionalEmailValid,
     optionalEmailExist,
     validResult

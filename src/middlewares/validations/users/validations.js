@@ -1,3 +1,4 @@
+const { check } = require('express-validator');
 const { validateJWT, hasRole } = require("../auth/validations");
 const { ADMIN_ROLE } = require("../../../constants/index");
 const { 
@@ -10,13 +11,18 @@ const {
     passwordRequired,
     roleValid,
     idRequired,
-    idExist,
     optionalEmailValid,
     optionalEmailExist,
     validResult 
 } = require('../commons');
 
 
+const _idExist = check("id").custom(async (id = "") => {
+    const userFound = await userService.findById(id);
+    if (!userFound) {
+        throw new ErrorResponse("The id doesn't exist", 400);
+    }
+});
 
 const getAllUsersValidations = [
     validateJWT,
@@ -25,7 +31,7 @@ const getAllUsersValidations = [
 const getUserByIdValidations = [
     validateJWT,
     idRequired,
-    idExist,
+    _idExist,
     validResult,
 ];
 
@@ -47,7 +53,7 @@ const putUserValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    idExist,
+    _idExist,
     roleValid,
     optionalEmailValid,
     optionalEmailExist,
@@ -57,7 +63,7 @@ const deleteUserValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    idExist,
+    _idExist,
     validResult,
 ];
 

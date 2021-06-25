@@ -4,7 +4,6 @@ const characterService = require('../../../service/character.service');
 const { ADMIN_ROLE } = require("../../../constants/index");
 const {
     idRequired,
-    idExist,
     validResult, 
     roleValid
 } = require('../commons');
@@ -31,7 +30,7 @@ const getCharListValidations = [
 ]
 const getCharByIdValidations = [
     idRequired,
-    idExist,
+    // _idExist,
     validResult,
 ];
 
@@ -50,14 +49,14 @@ const postCharValidations = [
 const putCharValidations = [
     validateJWT,
     idRequired,
-    idExist,
+    // _idExist,
     validResult,
 ];
 const deleteCharValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
     idRequired,
-    idExist,
+    // _idExist,
     roleValid,
     validResult,
 ];
