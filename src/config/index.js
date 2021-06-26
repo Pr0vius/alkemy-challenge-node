@@ -37,5 +37,9 @@ module.exports = {
     webtoken:{
         secret: process.env.JWT_SECRET || "secret",
         expires: process.env.JWT_EXPIRES || "1d"
+    },
+    mail:{
+        email: process.env.EMAIL,
+        apiKey: process.env.SENDGRID_API_KEY
     }
 };
