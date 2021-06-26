@@ -1,8 +1,11 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { webtoken } = require("../config/index");
+const sgMail = require("@sendgrid/mail");
+const { webtoken, mail } = require("../config/index");
 const ErrorResponse = require("../helpers/errorResponse");
 const userService = require("./user.service");
+
+sgMail.setApiKey(mail.apiKey);
 
 const login = async (email, password) => {
     try {
@@ -55,8 +58,17 @@ const register = async (user) => {
     try {
         const newUser = await userService.create(user);
 
+        const msg = {
+            to: `${user.email}`, 
+            from: `${mail.email}`,
+            subject: "Thanks you to register to my Api!",
+            text: `Hi, ${user.username}!this email was sended by SendGrid to say thanks you, now you can use the api now`,
+        };
+
+        await sgMail.send(msg);
+
         const token = _encrypt(newUser.id);
-        
+
         return {
             token,
             role: newUser.role,
@@ -65,19 +77,15 @@ const register = async (user) => {
             lastname: newUser.lastname,
             username: newUser.username,
             email: newUser.email,
-            enabled: newUser.enabled
-        }
+            enabled: newUser.enabled,
+        };
     } catch (err) {
         throw new ErrorResponse("Couldn't create the user", 403, err);
     }
-}
-
-
+};
 
 const _encrypt = (id) => {
-
     return jwt.sign({ id }, webtoken.secret, { expiresIn: webtoken.expires });
-
 };
 
 const validateToken = async (token) => {
