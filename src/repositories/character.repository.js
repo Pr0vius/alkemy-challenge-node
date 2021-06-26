@@ -1,10 +1,15 @@
 const { Op } = require("sequelize");
 const CharacterSchema = require("../models/characters.schema");
+const Movie = require("../models/movies.schema");
+
 class CharacterRepository {
     constructor() {}
 
     async findAll({ name, age, weight, movieId }) {
         let where = {};
+        let through = {};
+        let required = false;
+
         if (name) {
             where.name = { [Op.like]: `%${name}%` };
         }
@@ -14,14 +19,35 @@ class CharacterRepository {
         if (weight) {
             where.weight = { [Op.like]: `%${weight}%` };
         }
+        if (movieId) {
+            through = { where: { movieId } };
+            required = true;
+        }
         return await CharacterSchema.findAll({
             where,
             attributes: ["name", "image_url"],
+            include: [
+                {
+                    model: Movie,
+                    as: "movies",
+                    through,
+                    attributes: ["id"],
+                    required,
+                },
+            ],
         });
     }
 
     async findById(id) {
-        return await CharacterSchema.findByPk(id);
+        return await CharacterSchema.findByPk(id, {
+            include: [
+                {
+                    model: Movie,
+                    as: "movies",
+                    attributes: ["id", "title", "image_url"],
+                },
+            ],
+        });
     }
 
     async findByName(name) {

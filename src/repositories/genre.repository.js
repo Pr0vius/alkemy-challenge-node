@@ -1,38 +1,46 @@
-const GenreSchema = require('../models/genre.schema');
+const GenreSchema = require("../models/genre.schema");
+const Movie = require("../models/movies.schema");
 
-class GenreRepository{
+class GenreRepository {
+    constructor() {}
 
-    constructor(){}
-
-    async findAll(filter) {
-        let where = {}
-        if (filter.name) {
-            where.name = filter.name
+    async findAll({ name }) {
+        let where = {};
+        if (name) {
+            where.name = name;
         }
-        return await GenreSchema.findAll(where);
+        return await GenreSchema.findAll({ where });
     }
 
     async findById(id) {
-        return await GenreSchema.findByPk(id)
+        return await GenreSchema.findByPk(id, {
+            include: [
+                {
+                    model: Movie,
+                    as: "movies",
+                    attributes: ["id", "title", "image_url"],
+                },
+            ],
+        });
     }
 
     async findByName(name) {
-        return await GenreSchema.findOne({where: { name }})
+        return await GenreSchema.findOne({ where: { name } });
     }
 
-    async create(genre){
+    async create(genre) {
         return await GenreSchema.create(genre);
     }
 
-    async update(id, genre){
+    async update(id, genre) {
         GenreSchema.update(genre, {
             where: { id: id },
         });
     }
 
-    async delete(id){
-        return await GenreSchema.destroy({where: {id}});
+    async delete(id) {
+        return await GenreSchema.destroy({ where: { id } });
     }
 }
 
-module.exports = GenreRepository
+module.exports = GenreRepository;
