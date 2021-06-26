@@ -13,7 +13,7 @@ Movie.init(
     image_url: { type: DataTypes.STRING, allowNull: false },
     title: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     releaseDate: { type: DataTypes.DATEONLY, allowNull: false },
-    rating: { type: DataTypes.INTEGER({length:5}).UNSIGNED.ZEROFILL, allowNull: false, },
+    rating: { type: DataTypes.INTEGER().UNSIGNED.ZEROFILL, allowNull: false, validate:{min:1 ,max:5} },
   },
   {
     //Model Options
