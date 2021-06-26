@@ -1,9 +1,18 @@
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('ADVENTURE', 'https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_.jpg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('COMEDY', 'https://www.aceprensa.com/wp-content/uploads/2012/06/57800-0.jpg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('ACTION', 'https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/mejores-posters-no-oficiales-deadpool-2/deadpool2-09/137922903-1-esl-ES/deadpool2-09.jpg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('SCIENCE_FICTION', 'http://d1f7geppf3ca7.cloudfront.net/origin/266782/tron_legacy_poster_1.jpg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('MUSICAL', 'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-12561-8iil4l_d6ecf7bd.jpeg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('FANTASY', 'https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('TERROR', 'https://i1.netflixmovies.com/dibsl9ebc/image/upload/w_1024/ovrxqsclq3wxhpqbgzeg.jpg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('DRAMA', 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/BF2990142FBFDE66B388DA85D7DB89E1E7C4CA2F75167A88D5DC689D2E37776D/scale?width=1200&aspectRatio=1.78&format=jpeg');
-INSERT INTO `0wKciVovPx`.`genres` (`name`, `image_url`) VALUES ('SUSPENSE', 'https://musicart.xboxlive.com/7/8ad72900-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080');
+-- Genre Inserts
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('ADVENTURE', 'https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_.jpg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('COMEDY', 'https://www.aceprensa.com/wp-content/uploads/2012/06/57800-0.jpg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('ACTION', 'https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/mejores-posters-no-oficiales-deadpool-2/deadpool2-09/137922903-1-esl-ES/deadpool2-09.jpg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('SCIENCE_FICTION', 'http://d1f7geppf3ca7.cloudfront.net/origin/266782/tron_legacy_poster_1.jpg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('MUSICAL', 'https://lumiere-a.akamaihd.net/v1/images/open-uri20150422-12561-8iil4l_d6ecf7bd.jpeg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('FANTASY', 'https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('TERROR', 'https://i1.netflixmovies.com/dibsl9ebc/image/upload/w_1024/ovrxqsclq3wxhpqbgzeg.jpg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('DRAMA', 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/BF2990142FBFDE66B388DA85D7DB89E1E7C4CA2F75167A88D5DC689D2E37776D/scale?width=1200&aspectRatio=1.78&format=jpeg');
+INSERT INTO `disney_chars_api`.`genres` (`name`, `image_url`) VALUES ('SUSPENSE', 'https://musicart.xboxlive.com/7/8ad72900-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080');
+
+-- Character Inserts
+INSERT INTO `0wKciVovPx`.`characters` (`name`, `image_url`, `age`, `weight`, `history`) VALUES ('DeadPool', 'https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png', '30', '81', "The character\'s back-story has been presented as vague and subject to change, and within the narrative he is unable to remember his personal history due to a mental condition. Whether or not his name was even Wade Wilson is subject to speculation since one of his nemeses, T-Ray, claims in Deadpool #33 that he is the real Wade Wilson and that Deadpool is a vicious murderer who stole his identity.[57] There have been other dubious stories about his history—at one point the supervillain Loki claimed to be his father.[58] Frequently, revelations are later retconned or ignored altogether, and in one issue, Deadpool himself joked that whether he is actually Wade Wilson depends on which the writer or the reader prefers.");
+INSERT INTO `0wKciVovPx`.`characters` (`name`, `image_url`, `age`, `weight`, `history`) VALUES ("Elsa", "https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311", '24', '54', "Elsa was born on the winter solstice to King Agnarr and Queen Iduna of Arendelle. Eventually, Elsa discovered that she had the ability to produce ice and snow and used her powers to enhance her play with Anna. One night, at the age of eight, Elsa's father told her the story of an enchanted forest.");
+
+-- Movie Inserts
+INSERT INTO 'disney_chars_api'.'movies' ("image_url","title", "rating", "releaseDate") VALUES ("https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1", "Frozen" , "2014-01-02", 5)
+INSERT INTO 'disney_chars_api'.'movies' ("image_url","title", "rating", "releaseDate") VALUES ("https://i.ebayimg.com/images/g/LzkAAOSwQYZWvXWe/s-l1600.jpg", "DeadPool" , "2016-02-11", 5)
