@@ -1,6 +1,6 @@
 const { check } = require("express-validator");
 const { validateJWT, hasRole } = require("../auth/validations");
-const { ADMIN_ROLE } = require("../../../constants/index");
+const { ADMIN_ROLE, USER_ROLE } = require("../../../constants/index");
 const { idRequired, validResult, roleValid } = require("../commons");
 const { charNameUniqueFunction, characterIdExistFunction } = require("../customFunctions");
 
@@ -29,8 +29,16 @@ const _historyRequired = check("history", "History is required")
 ;
 
 
-const getCharListValidations = [validResult];
+const getCharListValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
+    validResult
+];
 const getCharByIdValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult,
@@ -38,6 +46,8 @@ const getCharByIdValidations = [
 
 const postCharValidations = [
     validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     _nameRequired,
     _nameIsUnique,
     _imageRequired,
@@ -50,16 +60,18 @@ const postCharValidations = [
 
 const putCharValidations = [
     validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult,
 ];
 const deleteCharValidations = [
     validateJWT,
-    hasRole(ADMIN_ROLE),
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
-    roleValid,
     validResult,
 ];
 

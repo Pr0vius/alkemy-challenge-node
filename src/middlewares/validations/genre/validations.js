@@ -1,7 +1,7 @@
 const {check} = require('express-validator');
 const { validateJWT, hasRole } = require("../auth/validations");
 const { genreIdExistFunction, genreUniqueFunction } = require('../customFunctions/index');
-const { ADMIN_ROLE } = require("../../../constants/index");
+const { USER_ROLE, ADMIN_ROLE } = require("../../../constants/index");
 const {
     idRequired,
     validResult, 
@@ -24,9 +24,15 @@ const _idExist = check("id").custom(genreIdExistFunction);
 
 
 const getGenreListValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     validResult,
 ];
 const getGenreByIdValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult,
@@ -34,6 +40,9 @@ const getGenreByIdValidations = [
 
 const postGenreValidations = [
     validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
+    hasRole(ADMIN_ROLE),
     _nameRequired,
     _nameIsUnique,
     _imageRequired,
@@ -43,16 +52,18 @@ const postGenreValidations = [
 
 const putGenreValidations = [
     validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult,
 ];
 const deleteGenreValidations = [
     validateJWT,
-    hasRole(ADMIN_ROLE),
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
-    roleValid,
     validResult,
 ];
 

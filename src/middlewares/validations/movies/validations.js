@@ -1,11 +1,11 @@
 const { check } = require("express-validator");
 const { validateJWT, hasRole } = require("../auth/validations");
-const { ADMIN_ROLE } = require("../../../constants/index");
+const { USER_ROLE, ADMIN_ROLE } = require("../../../constants/index");
 const { idRequired, validResult, roleValid } = require("../commons");
 const { movieIdExistFunction, movieNameUniqueFunction } = require('../customFunctions/index'); 
 
-const _nameRequired = check("name", "Name is required").not().isEmpty();
-const _nameIsUnique = check("name").custom(movieNameUniqueFunction);
+const _titleRequired = check("title", "Title is required").not().isEmpty();
+const _titleIsUnique = check("title").custom(movieNameUniqueFunction);
 const _imageRequired = check("image_url", "Image is required")
     .not()
     .isEmpty()
@@ -22,13 +22,27 @@ const _ratingType = check("rating", "Rating Must a number between 1 and 5")
 const _idExist = check("id").custom(movieIdExistFunction);
 
 
-const getMovieListValidations = [validResult];
-const getMovieByIdValidations = [idRequired, _idExist, validResult];
+const getMovieListValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
+    validResult
+];
+const getMovieByIdValidations = [
+    validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
+    idRequired,
+    _idExist,
+    validResult
+];
 
 const postMovieValidations = [
     validateJWT,
-    _nameRequired,
-    _nameIsUnique,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
+    _titleRequired,
+    _titleIsUnique,
     _imageRequired,
     _imageType,
     _ratingRequired,
@@ -37,18 +51,22 @@ const postMovieValidations = [
 ];
 const putMovieValidations = [
     validateJWT,
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult
 ];
 const deleteMovieValidations = [
     validateJWT,
-    hasRole(ADMIN_ROLE),
+    hasRole(USER_ROLE, ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     roleValid,
     validResult,
 ];
+
 
 module.exports = {
     getMovieListValidations,
