@@ -26,10 +26,14 @@ const _idExist = check("id").custom(async (id = "") => {
 
 const getAllUsersValidations = [
     validateJWT,
+    hasRole(ADMIN_ROLE),
+    roleValid,
     validResult,
 ]
 const getUserByIdValidations = [
     validateJWT,
+    hasRole(ADMIN_ROLE),
+    roleValid,
     idRequired,
     _idExist,
     validResult,
@@ -38,6 +42,7 @@ const getUserByIdValidations = [
 const postUserValidations = [
     validateJWT,
     hasRole(ADMIN_ROLE),
+    roleValid,
     firstnameRequired,
     lastnameRequired,
     usernameRequired,
@@ -45,7 +50,6 @@ const postUserValidations = [
     emailType,
     emailExist,
     passwordRequired,
-    roleValid,
     validResult,
 ];
 
