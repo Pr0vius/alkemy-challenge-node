@@ -74,7 +74,7 @@ exports.updateMovie = async (req, res, next) => {
 exports.deleteMovie = async (req, res, next) => {
     try {
         await Movie.remove(req.params.id);
-        res.status(200).json(new Success("User Deleted", 200));
+        res.status(200).json(new Success("Movie Deleted", 200));
     } catch (err) {
         next(new ErrorResponse("Couldn't Delete the Movie", 400, err));
     }

@@ -61,7 +61,7 @@ exports.updateGenre = async (req, res, next) => {
     try {
         await Genre.update(req.params.id, genre);
 
-        res.status(201).json(new Success("Genre Updated, 201"));
+        res.status(201).json(new Success("Genre Updated", 201));
     } catch (err) {
         next(new ErrorResponse("Couldn't Update the Genre", 401, err));
     }

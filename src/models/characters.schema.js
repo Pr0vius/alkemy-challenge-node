@@ -21,11 +21,11 @@ Characters.init(
       allowNull: false,
     },
     age: {
-      type: DataTypes.FLOAT.UNSIGNED,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
     },
     weight: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     history: {

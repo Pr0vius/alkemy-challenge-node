@@ -11,6 +11,7 @@ const _imageRequired = check("image_url", "Image is required")
     .isEmpty()
 ;
 const _imageType = check("image_url", "Image must be an URL").isURL();
+const _releaseDateRequired = check("releaseDate", "Release Date is required").not().isEmpty();
 const _ratingRequired = check("rating", "Rating is Required")
     .not()
     .isEmpty()
@@ -45,6 +46,7 @@ const postMovieValidations = [
     _titleIsUnique,
     _imageRequired,
     _imageType,
+    _releaseDateRequired,
     _ratingRequired,
     _ratingType,
     validResult,

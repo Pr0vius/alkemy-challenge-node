@@ -24,7 +24,9 @@ class UserRepository {
     async findUserByEmail(email) {
         return await UserSchema.findOne({ where: { email } });
     }
-
+    async findUserByUsername(username) {
+        return await UserSchema.findOne({ where: { username } });
+    }
     async createUser(user) {
         user.password = await bcrypt.hash(user.password, 10);
 

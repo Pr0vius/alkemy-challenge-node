@@ -79,9 +79,8 @@ exports.updateUser = async (req, res, next) => {
             firstname,
             lastname,
             username,
-            birthdate,
             email,
-            password,
+            role
         } = req.body);
 
         await User.update(req.params.id, user);

@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator");
 const ErrorResponse = require('../../helpers/errorResponse');
-const { emailExistFunction, roleValidFunction} = require('./customFunctions/index');
+const { emailExistFunction, roleValidFunction, usernameUniqueFunction} = require('./customFunctions/index');
 
 const firstnameRequired = check("firstname", "Firstname is required")
     .not()
@@ -13,11 +13,9 @@ const lastnameRequired = check("lastname", "Lastname is required")
 const usernameRequired = check("username", "Username is required")
     .not()
     .isEmpty()
-    .isLength({
-        min:5,
-        max:16
-    }
-);
+;
+
+const usernameUnique = check("username").custom(usernameUniqueFunction)
 
 const emailRequired = check("email", "Email is required")
     .not()
@@ -59,6 +57,7 @@ module.exports = {
     firstnameRequired,
     lastnameRequired,
     usernameRequired,
+    usernameUnique,
     emailRequired,
     emailType,
     emailExist,

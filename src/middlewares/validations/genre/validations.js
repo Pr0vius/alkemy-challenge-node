@@ -42,7 +42,6 @@ const postGenreValidations = [
     validateJWT,
     hasRole(USER_ROLE, ADMIN_ROLE),
     roleValid,
-    hasRole(ADMIN_ROLE),
     _nameRequired,
     _nameIsUnique,
     _imageRequired,

@@ -30,29 +30,29 @@ class ExpressServer {
         });
 
         this.app.use(
-            `${this.basePath}/users`,
+            `/users`,
             require("../../routes/user.routes")
         );
 
         this.app.use(
-            `${this.basePath}/characters`,
+            `/characters`,
             require("../../routes/character.routes")
         );
 
         this.app.use(
-            `${this.basePath}/movies`,
+            `/movies`,
             require("../../routes/movie.routes")
         );
         
-        this.app.use(`${this.basePath}/associate`, require('../../routes/assiociations.routes'))
+        this.app.use(`/associate`, require('../../routes/assiociations.routes'))
 
         this.app.use(
-            `${this.basePath}/genres`,
+            `/genres`,
             require("../../routes/genre.routes")
         );
         
         this.app.use(
-            `${this.basePath}/auth`,
+            `/auth`,
             require("../../routes/auth.routes")
         );
 

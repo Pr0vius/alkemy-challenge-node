@@ -14,10 +14,10 @@ class CharacterRepository {
             where.name = { [Op.like]: `%${name}%` };
         }
         if (age) {
-            where.age = { [Op.like]: `%${age}%` };
+            where.age = { [Op.like]: `${age}` };
         }
         if (weight) {
-            where.weight = { [Op.like]: `%${weight}%` };
+            where.weight = { [Op.like]: `${weight}` };
         }
         if (movieId) {
             through = { where: { movieId } };

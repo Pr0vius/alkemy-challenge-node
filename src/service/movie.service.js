@@ -14,6 +14,7 @@ exports.findByName = async (title) => {
 
 exports.create = async (movie) => {
     movie.releaseDate = new Date(movie.releaseDate);
+    console.log(movie.releaseDate);
     return repository.create(movie);
 };
 

@@ -15,6 +15,13 @@ const emailExistFunction = async (email = "") => {
     }
 };
 
+const usernameUniqueFunction = async (username = "") => {
+    const userFound = await userService.findByUsername(username)
+    if (userFound) {
+        throw new ErrorResponse("Username Already Exist", 400);
+    }
+}
+
 const roleValidFunction = async (role = "") => {
     if (!ROLES.includes(role)) {
         throw new ErrorResponse("Invalid Role", 400);
@@ -71,6 +78,7 @@ const genreUniqueFunction = async (name = '') => {
 }
 module.exports = {
     emailExistFunction,
+    usernameUniqueFunction,
     roleValidFunction,
     // Characters
     characterIdExistFunction,

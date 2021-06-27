@@ -1,4 +1,5 @@
 const { check } = require('express-validator');
+const userService = require('../../../service/user.service');
 const { validateJWT, hasRole } = require("../auth/validations");
 const { ADMIN_ROLE } = require("../../../constants/index");
 const { 

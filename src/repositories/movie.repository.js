@@ -1,3 +1,4 @@
+const {Op} = require('sequelize');
 const Characters = require("../models/characters.schema");
 const Genre = require("../models/genre.schema");
 const MovieSchema = require("../models/movies.schema");
@@ -11,10 +12,14 @@ class MovieRepository {
         let required = false;
 
         if (title) {
-            where.title = title;
+            if (title) {
+                where.title = { [Op.like]: `%${title}%` };
+            }
         }
         if (releaseDate) {
-            where.releaseDate = releaseDate;
+            if (releaseDate) {
+                where.releaseDate = { [Op.like]: `%${releaseDate}%` };
+            }
         }
         if (order === "ASC") {
             order = "ASC";

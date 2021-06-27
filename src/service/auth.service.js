@@ -65,7 +65,11 @@ const register = async (user) => {
             text: `Hi, ${user.username}!this email was sended by SendGrid to say thanks you, now you can use the api now`,
         };
 
-        await sgMail.send(msg);
+        try {
+            await sgMail.send(msg);
+        } catch (err) {
+            throw ErrorResponse("Couldn't send the email", 400, err)
+        }
 
         const token = _encrypt(newUser.id);
 

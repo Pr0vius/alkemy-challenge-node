@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const GenreSchema = require("../models/genre.schema");
 const Movie = require("../models/movies.schema");
 
@@ -7,7 +8,7 @@ class GenreRepository {
     async findAll({ name }) {
         let where = {};
         if (name) {
-            where.name = name;
+            where.name = { [Op.like]: `%${name}%` };
         }
         return await GenreSchema.findAll({ where });
     }
