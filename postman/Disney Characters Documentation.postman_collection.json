@@ -1,0 +1,5688 @@
+{
+	"info": {
+		"_postman_id": "ce0015e9-b48b-45b3-b2ec-7005fa1a6eaa",
+		"name": "Disney Characters Documentation",
+		"description": "This is a basic API to do operations about character and movies from the Disney's world.\n\n#### Dependencies\n* NodeJs \n* Express\n* Sequelize\n* [SendGrid](https://sendgrid.com/)\n* JsonWebToken\n* bcrypt\n* wingston\n\n#### Before start\nThis API uses an third party services for sending emails, so before start i recommend to create an account on [SendGrid](https://sendgrid.com/) and generate an API key to the correct usage.\n\n#### Usage\n1. Install the dependecies\n> npm install\n2.Rename the **env.example** file to **.env** to the sensitive data and complete the fields with your configurations\n3.Start the API\n\n Production: \n   > **npm start** \n\n Development:\n   > **npm run dev**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "For register you need to send a model of user that u want to save it on database,\nthis must contain:\n* firstname *[ String(max:50 characters), Optional ]*\n* lastname *[ String(max:50 characters), Optional ]*\n* username *[ String(min:5 characters, max:16 characters ), Required, unique]*\n* email *[ String(max: 80 ), Email Format, Required, unique]*\n* password *[ String(will be encrypted ), Required ]*"
+					},
+					"response": [
+						{
+							"name": "Register Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoee\",\r\n    \"email\": \"John01@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "285"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11d-vMv260NbqBNSQOZRZ144nWZG9/k\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:36:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTYyNDczMjU5NSwiZXhwIjoxNjI5OTE2NTk1fQ.xgFcbJtme23E_UzCrnt9ws1OCSb36_uT4Ubju48CmcI\",\n        \"role\": \"USER_ROLE\",\n        \"id\": 12,\n        \"firstname\": \"John\",\n        \"lastname\": \"Doe\",\n        \"username\": \"johndoee\",\n        \"email\": \"John01@Doe.com\",\n        \"enabled\": true\n    }\n}"
+						},
+						{
+							"name": "Register response email already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-NNTrqOvUwE+DGkoyhdoezkmndzY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:25:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"John@Doe.com\",\n                \"msg\": \"Email Already Exist\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Register response email is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoeee\",\r\n    \"email\": \"\",\r\n    \"password\": \"adfasdf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cd-ZbrK/3rgIgpdFqQffP0dPX7Xq4U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:38:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Email is required\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Must be an email\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Register response username already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"John01@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "148"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"94-TnTPxxsDiD2nnqQh5E0hsVXy/vk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:34:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"johndoe\",\n                \"msg\": \"Username Already Exist\",\n                \"param\": \"username\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Register response username is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"\",\r\n    \"email\": \"John0a1@Doe.com\",\r\n    \"password\": \"adfasdf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b-nYZsqlRVB3P8ZhJ/x0zcfg0ByAw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:43:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Username is required\",\n                \"param\": \"username\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Register  response password is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoeee\",\r\n    \"email\": \"John0a1@Doe.com\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b-EK/dyxh9CRc5ZBvozJahmdYsLJc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:37:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Password is required\",\n                \"param\": \"password\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Register response email must be an email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"asdgdfsfg\",\r\n    \"email\": \"John0a1@Doe\",\r\n    \"password\": \"adfasdf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "143"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8f-2krsY/oleH8Otb9/zPyu61YmXkI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:44:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"John0a1@Doe\",\n                \"msg\": \"Must be an email\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "When a new user is registered, you can generate a new token by login, sending the user email and the password, if it match will response the token and user data."
+					},
+					"response": [
+						{
+							"name": "Login Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "279"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"117-8d536ZqmBrAO13vJ2f9pKa+RFlY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:24:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI0NzMxODY0LCJleHAiOjE2Mjk5MTU4NjR9.GeiietjF8_rrYeD98wln9d4twyh3Phqb2T9V_9TsNrU\",\n        \"role\": \"USER_ROLE\",\n        \"id\": 1,\n        \"firstname\": \"John\",\n        \"lastname\": \"Doe\",\n        \"username\": \"johndoe\",\n        \"email\": \"John@Doe.com\",\n        \"enabled\": true\n    }\n}"
+						},
+						{
+							"name": "Login response no email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "205"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cd-ZbrK/3rgIgpdFqQffP0dPX7Xq4U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:21:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Email is required\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Must be an email\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Login response no password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"John@Doe.com\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b-EK/dyxh9CRc5ZBvozJahmdYsLJc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:21:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Password is required\",\n                \"param\": \"password\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Login response bad Authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"John@Doe.com\",\r\n    \"password\": \"MySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "129"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"81-GLxO5ElsBsLRNCiHdUqkJQZCm/U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:22:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Couldn't LogIn\",\n        \"data\": {\n            \"statusCode\": 500,\n            \"data\": {\n                \"statusCode\": 400,\n                \"data\": \"User doesn't exist\"\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "For the usage of the API, you need a token sent by headers, name **Authorization**, you can get the token by this Auth operations"
+		},
+		{
+			"name": "Characters",
+			"item": [
+				{
+					"name": "Create new Character",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"DeadPool\", \r\n    \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\r\n    \"age\": 30,\r\n    \"weight\": 81,\r\n    \"history\": \"The character's back-story has been presented as vague and subject to change, and within the narrative he is unable to remember his personal history due to a mental condition. Whether or not his name was even Wade Wilson is subject to speculation since one of his nemeses, T-Ray, claims in Deadpool #33 that he is the real Wade Wilson and that Deadpool is a vicious murderer who stole his identity.[57] There have been other dubious stories about his history—at one point the supervillain Loki claimed to be his father.[58] Frequently, revelations are later retconned or ignored altogether, and in one issue, Deadpool himself joked that whether he is actually Wade Wilson depends on which the writer or the reader prefers.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/characters",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"characters"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response: Created Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"name\": \"DeadPool\", \r\n    \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\r\n    \"age\": 30,\r\n    \"weight\": 81,\r\n    \"history\": \"The character's back-story has been presented as vague and subject to change, and within the narrative he is unable to remember his personal history due to a mental condition. Whether or not his name was even Wade Wilson is subject to speculation since one of his nemeses, T-Ray, claims in Deadpool #33 that he is the real Wade Wilson and that Deadpool is a vicious murderer who stole his identity.[57] There have been other dubious stories about his history—at one point the supervillain Loki claimed to be his father.[58] Frequently, revelations are later retconned or ignored altogether, and in one issue, Deadpool himself joked that whether he is actually Wade Wilson depends on which the writer or the reader prefers.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/characters",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "890"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37a-rpEFeQygPHPyHPpNYp9ngErSw30\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:49:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"DeadPool\",\n        \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\n        \"age\": 30,\n        \"weight\": 81,\n        \"history\": \"The character's back-story has been presented as vague and subject to change, and within the narrative he is unable to remember his personal history due to a mental condition. Whether or not his name was even Wade Wilson is subject to speculation since one of his nemeses, T-Ray, claims in Deadpool #33 that he is the real Wade Wilson and that Deadpool is a vicious murderer who stole his identity.[57] There have been other dubious stories about his history—at one point the supervillain Loki claimed to be his father.[58] Frequently, revelations are later retconned or ignored altogether, and in one issue, Deadpool himself joked that whether he is actually Wade Wilson depends on which the writer or the reader prefers.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Character List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/characters",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Filter by name",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "Filter by age",
+									"disabled": true
+								},
+								{
+									"key": "movieId",
+									"value": "Filter by associated movie id",
+									"disabled": true
+								},
+								{
+									"key": "weight",
+									"value": "Filter by weight",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This method will give a list of characters which can be filtered by specific querys:\n* name: Search all the character with name like the one given\n* age: Search all characters with the given age\n* weight: Search all characters with the given weight\n* movieId: Search for all characters that have an association with the given movie id"
+					},
+					"response": [
+						{
+							"name": "Response: Character List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Elsa",
+											"disabled": true
+										},
+										{
+											"key": "age",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "weight",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "movieId",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "418"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a2-JKs/Eh5uSAXp9KYy8eGmLPVTzOg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:54:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"name\": \"Elsa\",\n            \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n            \"movies\": [\n                {\n                    \"id\": 1,\n                    \"charactersMovies\": {\n                        \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"movieId\": 1,\n                        \"charId\": 2\n                    }\n                }\n            ]\n        },\n        {\n            \"name\": \"DeadPool\",\n            \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\n            \"movies\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Character List filtered by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters?name=Elsa",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Elsa"
+										},
+										{
+											"key": "age",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "weight",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "movieId",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "418"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a2-JKs/Eh5uSAXp9KYy8eGmLPVTzOg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:52:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"name\": \"Elsa\",\n            \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n            \"movies\": [\n                {\n                    \"id\": 1,\n                    \"charactersMovies\": {\n                        \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"movieId\": 1,\n                        \"charId\": 2\n                    }\n                }\n            ]\n        },\n        {\n            \"name\": \"DeadPool\",\n            \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\n            \"movies\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Character List filtered by age",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters?age=30",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Elsa",
+											"disabled": true
+										},
+										{
+											"key": "age",
+											"value": "30"
+										},
+										{
+											"key": "weight",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "movieId",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b-F38zEEX8DWSntnT/DmrZ4qJ2rc4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:56:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"name\": \"DeadPool\",\n            \"image_url\": \"https://holatelcel.com/wp-content/uploads/2021/01/Deadpool-Marvel.png\",\n            \"movies\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Character List filtered by weight",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters?weight=54",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Elsa",
+											"disabled": true
+										},
+										{
+											"key": "age",
+											"value": "30",
+											"disabled": true
+										},
+										{
+											"key": "movieId",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "weight",
+											"value": "54"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "302"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12e-Xp9C4QfESb4EjC2C7zNkykkYnpc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 18:57:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"name\": \"Elsa\",\n            \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n            \"movies\": [\n                {\n                    \"id\": 1,\n                    \"charactersMovies\": {\n                        \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"movieId\": 1,\n                        \"charId\": 2\n                    }\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Character List Filtered by movieId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters?movieId=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Elsa",
+											"disabled": true
+										},
+										{
+											"key": "age",
+											"value": "30",
+											"disabled": true
+										},
+										{
+											"key": "movieId",
+											"value": "1"
+										},
+										{
+											"key": "weight",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "302"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12e-Xp9C4QfESb4EjC2C7zNkykkYnpc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:03:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"name\": \"Elsa\",\n            \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n            \"movies\": [\n                {\n                    \"id\": 1,\n                    \"charactersMovies\": {\n                        \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                        \"movieId\": 1,\n                        \"charId\": 2\n                    }\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Character by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/characters/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"characters",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the character u want to search"
+								}
+							]
+						},
+						"description": "This method will search a character with the id given on the path variable **:/id**. If the character is found, the server will return the detailed data from the character, if not, will send an error communicating that it was not found."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "784"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"310-XClUl3T3SIXUFFV6mNyItBBsiSI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:41:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Elsa\",\n        \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n        \"age\": 24,\n        \"weight\": 54,\n        \"history\": \"Elsa was born on the winter solstice to King Agnarr and Queen Iduna of Arendelle. Eventually, Elsa discovered that she had the ability to produce ice and snow and used her powers to enhance her play with Anna. One night, at the age of eight, Elsa's father told her the story of an enchanted forest.\",\n        \"movies\": [\n            {\n                \"id\": 1,\n                \"title\": \"Frozen 2\",\n                \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n                \"charactersMovies\": {\n                    \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                    \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                    \"movieId\": 1,\n                    \"charId\": 2\n                }\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Character id does not exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"92-dapCudmYQAooVrryUqLf5WtrZfY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:41:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"8\",\n                \"msg\": \"The Character id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Character",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/characters/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"characters",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The id of the character you want to update"
+								}
+							]
+						},
+						"description": "Update the character with the given id"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-qWV42RYJW5yz4J2JDkSxqoKmf7k\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:44:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"Character Updated\"\n}"
+						},
+						{
+							"name": "Response: Character id doesn't exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"92-ZpnDnWN4ufCMc1o5RtG86Dosl7g\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:43:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"1\",\n                \"msg\": \"The Character id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Character",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/characters/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"characters",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The id of the character you want to delete"
+								}
+							]
+						},
+						"description": "Delete the Character with the given id"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-VN2j1Ci/XXSikJ4kuDNtjApLmN0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:45:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": \"Character Deleted\"\n}"
+						},
+						{
+							"name": "Response: The Character id doesn't exist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/characters/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"characters",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"92-XOZNt0B+fAmAcEV/+tTb2AeiB7M\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:45:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"4\",\n                \"msg\": \"The Character id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "If you have an token to the Authorization, now you can use the API and do characters operation.\n#### Character Model:\n---\n* **id**: *[Primary Key, Integer, Auto Increment, unique]*\n* **name**: *[VARCHAR(255), Required, unique]*\n* **image_url**: *[VARCHAR(255), Required]*\n* **age**: *[Integer, unsigned]*\n* **weight**: *[Integer]*\n* **history**: *[Text]*"
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Create new Movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"Frozen\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movies"
+							]
+						},
+						"description": "This operation saves a movie object in the database. For this you must send an object with the correct data.\n* title(string)\n* image_url(url)\n* releaseDate(date)\n* rating(number)"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 2\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "217"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d9-FnGlV+WuUO+niu4Ygdw02EY2Zl0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:46:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": {\n        \"id\": 4,\n        \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n        \"title\": \"DeadPool 2\",\n        \"releaseDate\": \"2014-01-02\",\n        \"rating\": \"4\"\n    }\n}"
+						},
+						{
+							"name": "Response: Image is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"\",\r\n    \"title\": \"DeadPool 3\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "217"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d9-5KyFVjYtxANz/iyl4orAc5VvhCg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:06:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Image is required\",\n                \"param\": \"image_url\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Image must be an URL\",\n                \"param\": \"image_url\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Image must be an URL",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"asdf\",\r\n    \"title\": \"DeadPool 4\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"5\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "144"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"90-Xe0lhr/6tOPOHz2u/cow95emu1M\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:12:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"asdf\",\n                \"msg\": \"Image must be an URL\",\n                \"param\": \"image_url\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Movie Already Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 2\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "145"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"91-m/iTmZkpio8rFBxXev6+1StBsGU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:07:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"DeadPool 2\",\n                \"msg\": \"Movie Already Exist\",\n                \"param\": \"title\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Release Date is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 4\",\r\n    \"releaseDate\": \"\",\r\n    \"rating\": \"4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "146"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"92-WtOn3aD7Jw5wOMBXQh34f12Q/I8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:11:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Release Date is required\",\n                \"param\": \"releaseDate\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Rating is Required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 4\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-rzJEQHK1N/0Q+dT4RLpNa4RN5iI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:11:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Rating is Required\",\n                \"param\": \"rating\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Rating Must a number between 1 and 5\",\n                \"param\": \"rating\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: ReleaseDate must be a Date",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 4\",\r\n    \"releaseDate\": \"01\",\r\n    \"rating\": \"4\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "151"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"97-s2Uz+pNMuWSRIIjSm6KljCInfuk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:15:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"01\",\n                \"msg\": \"Release Date must be a Date\",\n                \"param\": \"releaseDate\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Rating is Required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\r\n    \"title\": \"DeadPool 8\",\r\n    \"releaseDate\": \"01/02/2014\",\r\n    \"rating\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e4-rzJEQHK1N/0Q+dT4RLpNa4RN5iI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:23:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Rating is Required\",\n                \"param\": \"rating\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Rating Must a number between 1 and 5\",\n                \"param\": \"rating\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Movies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movies"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "Sort by release date",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Filter by title",
+									"disabled": true
+								},
+								{
+									"key": "releaseDate",
+									"value": "Filter by release date",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "Associate Genre Id",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This method returns a list of objects with some data of all movies in the database.\nYou can filter the the data received by specific query params:\n* order: sorts the data received by the release date. The only options available are **ASC** and **DESC**(DESC by default).\n* title: Search all the movies with the title like the one given\n* releaseDate: Filter the data by the date given\n* genre: Filter the data by the associate genres with the same id as given"
+					},
+					"response": [
+						{
+							"name": "Response: Success Movie List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "releaseDate",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "genre",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "543"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21f-3Foog3jMfRsHV7oq70C9Ei/cj4U\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:27:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Frozen 2\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2014-01-02\",\n            \"genre\": [\n                {\n                    \"name\": \"FANTASY\",\n                    \"moviesGenre\": {\n                        \"createdAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"updatedAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"genreId\": 1,\n                        \"movieId\": 1\n                    }\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"title\": \"DeadPool\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2014-01-02\",\n            \"genre\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Success ASC order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies?order=ASC",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC"
+										},
+										{
+											"key": "title",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "releaseDate",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "genre",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "543"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21f-2wfbM/7XqxTJsfX374Pvie8VaT4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:31:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Frozen 2\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2014-01-02\",\n            \"genre\": [\n                {\n                    \"name\": \"FANTASY\",\n                    \"moviesGenre\": {\n                        \"createdAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"updatedAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"genreId\": 1,\n                        \"movieId\": 1\n                    }\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"title\": \"DeadPool\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2016-02-11\",\n            \"genre\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Success movie list filtering by title",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies?title=deadpool",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "releaseDate",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "genre",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "deadpool"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "215"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d7-fcSpU8CY/8bFCxKz/4VCaRJLbEw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:37:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 3,\n            \"title\": \"DeadPool\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2016-02-11\",\n            \"genre\": []\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Success movie list filtering by genreId",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies?genre=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "releaseDate",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "genre",
+											"value": "1"
+										},
+										{
+											"key": "title",
+											"value": "deadpool",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-LJHas5W5iqFkwl6FMjJH+BAVl4E\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:38:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Frozen 2\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2014-01-02\",\n            \"genre\": [\n                {\n                    \"name\": \"FANTASY\",\n                    \"moviesGenre\": {\n                        \"createdAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"updatedAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"genreId\": 1,\n                        \"movieId\": 1\n                    }\n                }\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Success movie list filtering by releaseDate",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies?releaseDate=2014-01-02",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC",
+											"disabled": true
+										},
+										{
+											"key": "releaseDate",
+											"value": "2014-01-02"
+										},
+										{
+											"key": "genre",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "deadpool",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-LJHas5W5iqFkwl6FMjJH+BAVl4E\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:39:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Frozen 2\",\n            \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n            \"releaseDate\": \"2014-01-02\",\n            \"genre\": [\n                {\n                    \"name\": \"FANTASY\",\n                    \"moviesGenre\": {\n                        \"createdAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"updatedAt\": \"2021-06-26T19:28:52.000Z\",\n                        \"genreId\": 1,\n                        \"movieId\": 1\n                    }\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Movie by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/movies/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movies",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The id of the character you want to search"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "503"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f7-uw80+13jf1TxbC5xsnGlIpwzAfI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:09:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n        \"title\": \"Frozen\",\n        \"releaseDate\": \"2014-01-02\",\n        \"rating\": 5,\n        \"characters\": [\n            {\n                \"id\": 2,\n                \"name\": \"Elsa\",\n                \"image_url\": \"https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311\",\n                \"charactersMovies\": {\n                    \"createdAt\": \"2021-06-26T02:26:49.000Z\",\n                    \"updatedAt\": \"2021-06-26T02:26:49.000Z\",\n                    \"movieId\": 1,\n                    \"charId\": 2\n                }\n            }\n        ],\n        \"genre\": []\n    }\n}"
+						},
+						{
+							"name": "Response: Id doesn't exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-A7SH23alFBlLtApbjBT+VLYbYxc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:09:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"2\",\n                \"msg\": \"The Movie id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Movie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Frozen 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/movies/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movies",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the movie you want to update"
+								}
+							]
+						},
+						"description": "Update the movie with the given id"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"Frozen 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25-uQjxZ/i8FG78D1uHjd915lLE1js\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:11:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"Movie Updated\"\n}"
+						},
+						{
+							"name": "Response: Id doesn't exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\":\"Frozen 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-A7SH23alFBlLtApbjBT+VLYbYxc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:11:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"2\",\n                \"msg\": \"The Movie id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Movie",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/movies/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"movies",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the movie you want to delete"
+								}
+							]
+						},
+						"description": "Delete the movie with the given id"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25-hfkP/vHc34E6NdSGdayf2JN6Mx0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:26:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": \"Movie Deleted\"\n}"
+						},
+						{
+							"name": "Response: The Movie id doesn't exist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movies/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movies",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-Ei/R55SyDwo++Th8JZxNjwHJdLw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:26:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"4\",\n                \"msg\": \"The Movie id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "If you have an token to the Authorization, now you can do movie operations.\n#### Movie Model\n---\n* **id**: *[Primary Key, Integer, Auto Increment, unique]*\n* **title**: *[VARCHAR(255), Required, unique]*\n* **image_url**: *[VARCHAR(255), Required]*\n* **releaseDate**: *[DATE, Required]*\n* **rating**: *[Integer(min: 1,max:5), Required]*"
+		},
+		{
+			"name": "Genres",
+			"item": [
+				{
+					"name": "Create new Genre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"FANTASY\",\r\n    \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/genres",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"genres"
+							]
+						},
+						"description": "This operation saves a genre object in the database. For this you must send an object with the correct data.\n* name (string)\n* image_url (URL)"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"ACTION\",\r\n    \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/genres",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "219"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"db-1+EB7AaHyCWeS2BrG83OhxUd/qg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:32:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"ACTION\",\n        \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\n    }\n}"
+						},
+						{
+							"name": "Response : Genre Already Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"FANTASY\",\r\n    \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/genres",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "141"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8d-YOS9A3C+IYq9Lg0wayd4WNgUR5s\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:31:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"FANTASY\",\n                \"msg\": \"Genre Already Exist\",\n                \"param\": \"name\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Name is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/genres",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "131"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"83-Tzyw0WLg1ZzuiXZKK18F/D0wuGo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:33:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Name is required\",\n                \"param\": \"name\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Image is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"I DONT KNOW\",\r\n    \"image_url\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/genres",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "217"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d9-5KyFVjYtxANz/iyl4orAc5VvhCg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:33:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"\",\n                \"msg\": \"Image is required\",\n                \"param\": \"image_url\",\n                \"location\": \"body\"\n            },\n            {\n                \"value\": \"\",\n                \"msg\": \"Image must be an URL\",\n                \"param\": \"image_url\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Genres",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/genres",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"genres"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Filter by name",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This method returns an array of objects with the genres in the database. You can filter the data received by the name of the genre with the query **name**."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "420"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a4-nnj1QlBbBJ6xDXom5/oKGiCfysM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"FANTASY\",\n            \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"ACTION\",\n            \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: Success filtering by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres?name=ACTION",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "ACTION"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"dd-i2IiN1LYgsse8emQ5KiYf5r8cEQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:37:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"ACTION\",\n            \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Genre by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/genres/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "This method return all the data of the genre with the id given and an array of the movies associated"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "503"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f7-pN1cl/Tg3l5QAB3oF5/tAEpXRzw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:40:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"FANTASY\",\n        \"image_url\": \"https://i1.wp.com/hipertextual.com/wp-content/uploads/2020/09/hipertextual-avatar-2-logra-concluir-su-rodaje-pese-covid-19-2020475848.jpg?fit=1200%2C675&ssl=1\",\n        \"movies\": [\n            {\n                \"id\": 1,\n                \"title\": \"Frozen 2\",\n                \"image_url\": \"https://i2.wp.com/noescinetodoloquereluce.com/wp-content/uploads/2019/09/frozen_two.jpg?resize=800%2C1186&ssl=1\",\n                \"moviesGenre\": {\n                    \"createdAt\": \"2021-06-26T19:28:52.000Z\",\n                    \"updatedAt\": \"2021-06-26T19:28:52.000Z\",\n                    \"genreId\": 1,\n                    \"movieId\": 1\n                }\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Response: Genre id doesn't exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-zfB7fB+KezfVLODzukWJSnQGEI8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:41:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"5\",\n                \"msg\": \"The Genre id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Genre",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/genres/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the Genre you want to update"
+								}
+							]
+						},
+						"description": "Update the genre with the given id"
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25-brf0wya5Ckf1iJ1jVDIb7T0FI3I\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:35:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"Genre Updated\"\n}"
+						},
+						{
+							"name": "Response: Genre id doesn't exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/genres/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"genres",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-zfB7fB+KezfVLODzukWJSnQGEI8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:36:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"5\",\n                \"msg\": \"The Genre id doesn't exist\",\n                \"param\": \"id\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Genre",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/genres/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the Genre you want to delete"
+								}
+							]
+						},
+						"description": "Delete the genre with the given id"
+					},
+					"response": []
+				}
+			],
+			"description": "If you're authenticated, you can do operations to create, read, update and delete genres from the database.\n#### Genre Schema\n---\n* **id**: [Primary Key, Integer, Auto Increment, unique]\n* **name**: [VARCHAR(255), Required, unique]\n* **image_url**: [VARCHAR(255), Required]"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe2\",\r\n    \"email\": \"John2@Doe.com\",\r\n    \"password\": \"mySuperPassword\",\r\n    \"role\": \"ADMIN_ROLE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "This method is quite similar to **register user**, but with the difference that the ADMIN that creates it can assign the ADMIN role."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe2\",\r\n    \"email\": \"John2@Doe.com\",\r\n    \"password\": \"mySuperPassword\",\r\n    \"role\": \"ADMIN_ROLE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"dd-cgopz4QRq0une2YtbFZZvjeANfs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Jun 2021 00:19:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": {\n        \"enabled\": true,\n        \"id\": 3,\n        \"firstname\": \"John\",\n        \"lastname\": \"Doe\",\n        \"username\": \"johndoe2\",\n        \"email\": \"John2@Doe.com\",\n        \"password\": \"$2b$10$Jc8vFYbR6aH/j11GlamVUOdg.XhKo4N76IaYp3ukqXd7TxiRSrzPq\",\n        \"role\": \"ADMIN_ROLE\"\n    }\n}"
+						},
+						{
+							"name": "Response: User Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-VUqUs4b7S0yfPYV9jI/cLDpqYrs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:47:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"User Unauthorized\",\n        \"data\": {\n            \"statusCode\": 403,\n            \"data\": \"Unauthorized user\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Response: Email exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"John@Doe.com\",\r\n    \"password\": \"mySuperPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-NNTrqOvUwE+DGkoyhdoezkmndzY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:57:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"John@Doe.com\",\n                \"msg\": \"Email Already Exist\",\n                \"param\": \"email\",\n                \"location\": \"body\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "This method returns an array of objects with the users in the database."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2118"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"846-m1utr01ff3L1mwBABp+T3cQQc6E\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:58:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"johndoe\",\n            \"email\": \"John@Doe.com\",\n            \"password\": \"$2b$10$oEduaE/vs4P2Xwijj8k/5.Pry2rbu73ZOuBUfuJxh/ZWAH9XmvPsK\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 3,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"Brian\",\n            \"lastname\": \"Doe\",\n            \"username\": \"provius\",\n            \"email\": \"brian@delgado.com\",\n            \"password\": \"$2b$10$9BIgWaouD2XY7aIFLj6xTeN4gv.CBusY3bgKvyrg3mHP3FaT6hHRC\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 4,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"johndoegdfg\",\n            \"email\": \"Johndfasd@Doe.com\",\n            \"password\": \"$2b$10$EGEgBYHUfvPt1STMq4FRSOs3.ZUTLK9PpSrLmC2/GcJc9Yz0XA0KG\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 5,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"johndoegdfasdfag\",\n            \"email\": \"Johndfaasdfsd@Doe.com\",\n            \"password\": \"$2b$10$VgnmXOjK8HqUHEmYv8NBkuigXZ9OqIW.7m4EvJbPKwIVugskJVzEq\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 6,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"briandelgado\",\n            \"email\": \"braiandelgado4255@hotmail.com\",\n            \"password\": \"$2b$10$EVaQg.fN7ywKbZNa1tcey.SQ4/Uj.oue./Udrzr2G8GtuOPZFLCAq\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 7,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"akuma\",\n            \"email\": \"contact@akumasoftware.com\",\n            \"password\": \"$2b$10$THcUxOeySC3TFDfnRIHGTeMapM6R0UwuAieKkY3bQ6IonF39ExIR6\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 8,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"akumaasdasd\",\n            \"email\": \"braiandelgado4255@gmail.com\",\n            \"password\": \"$2b$10$xM4AINvv1Mfc3tQUm0Ux9OPePaRdm7W1h.6K0XbV85TWJjJcASOx.\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 9,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"akumasddfdsfa\",\n            \"email\": \"asdfs@sasdf.com\",\n            \"password\": \"$2b$10$NILhfSX3PiESmtROM6tY9e/9FU8u6Di.U/SNo5Mu81JLKhnFS.1By\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 12,\n            \"role\": \"USER_ROLE\",\n            \"firstname\": \"John\",\n            \"lastname\": \"Doe\",\n            \"username\": \"johndoee\",\n            \"email\": \"John01@Doe.com\",\n            \"password\": \"$2b$10$QnxzN3Kir3qDIU6O5kKu1.oYNOqO5HyLlTfFdHmjheEQrQ5HHCNBa\",\n            \"enabled\": true\n        },\n        {\n            \"id\": 13,\n            \"role\": \"ADMIN_ROLE\",\n            \"firstname\": \"Brian\",\n            \"lastname\": \"Delgado\",\n            \"username\": \"provius4255\",\n            \"email\": \"braiandelgado425@hotmail.com\",\n            \"password\": \"$2b$10$jifoHzK6hBjzrnOxlwu5W.GFLf4lhKJuw7zDd3am4HgrBHh4Q5VDG\",\n            \"enabled\": true\n        }\n    ]\n}"
+						},
+						{
+							"name": "Response: User Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-VUqUs4b7S0yfPYV9jI/cLDpqYrs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:47:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"User Unauthorized\",\n        \"data\": {\n            \"statusCode\": 403,\n            \"data\": \"Unauthorized user\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the User"
+								}
+							]
+						},
+						"description": "This method will search a user with the id given on the path variable :/id. If the user is found, the server will return the detailed data from the user, if not, will send an error communicating that it was not found."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "218"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"da-jioL18mfKebF5wmuT7U3a5JOHnM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 21:03:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"role\": \"USER_ROLE\",\n        \"firstname\": \"John\",\n        \"lastname\": \"Doe\",\n        \"username\": \"johndoe\",\n        \"email\": \"John@Doe.com\",\n        \"password\": \"$2b$10$oEduaE/vs4P2Xwijj8k/5.Pry2rbu73ZOuBUfuJxh/ZWAH9XmvPsK\",\n        \"enabled\": true\n    }\n}"
+						},
+						{
+							"name": "Response: User Unauthorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-VUqUs4b7S0yfPYV9jI/cLDpqYrs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:48:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"User Unauthorized\",\n        \"data\": {\n            \"statusCode\": 403,\n            \"data\": \"Unauthorized user\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"jonny\",\r\n    \"email\": \"Jonny@Doe.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the user you want to update"
+								}
+							]
+						},
+						"description": "This method updates an user and return the result of the operation."
+					},
+					"response": [
+						{
+							"name": "Response: Succes",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"jonny\",\r\n    \"email\": \"Jonny@Doe.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"24-AphdrEEFqgrZvSpSvOg3cwriIN4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 21:04:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"User Updated\"\n}"
+						},
+						{
+							"name": "Response: User Unauthorized",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"John\",\r\n    \"lastname\": \"Doe\",\r\n    \"username\": \"jonny\",\r\n    \"email\": \"Jonny@Doe.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-VUqUs4b7S0yfPYV9jI/cLDpqYrs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:48:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"User Unauthorized\",\n        \"data\": {\n            \"statusCode\": 403,\n            \"data\": \"Unauthorized user\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "The ID of the user you want to delete"
+								}
+							]
+						},
+						"description": "This method deletes an user and return the result of the operation."
+					},
+					"response": [
+						{
+							"name": "Response: Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "36"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"24-/2GKUe6flTqA0afy3Qh3jH37grI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 21:05:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"data\": \"User Deleted\"\n}"
+						},
+						{
+							"name": "Response: User Unauthorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-VUqUs4b7S0yfPYV9jI/cLDpqYrs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 20:48:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"User Unauthorized\",\n        \"data\": {\n            \"statusCode\": 403,\n            \"data\": \"Unauthorized user\"\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "#### ATTENTION\nFor  users operations you must have an **ADMIN** role, only the user with the admin role can do the CRUD operations with users.\n\n#### User model\n* id: **[ Integer, Auto Increment, PrimaryKey ]** \n* role: **[ enum('USER_ROLE','ADMIN_ROLE') default:'USER_ROLE' ]** \n* firstname: **[ String(max:50) ]**  \n* lastname: **[ String(max:50) ]**  \n* username: **[ String(max:16), required ]**  \n* email: **[ String(80), required ]** \n* password: **[ String(255) encrypted, required ]**\n* enabled: **[ tinyint(1), default:1 ]**"
+		},
+		{
+			"name": "Associations",
+			"item": [
+				{
+					"name": "Movie-Character association",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/associate/movie/:movieId/character/:charId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"associate",
+								"movie",
+								":movieId",
+								"character",
+								":charId"
+							],
+							"variable": [
+								{
+									"key": "movieId",
+									"value": "The id of the movie you want to associate"
+								},
+								{
+									"key": "charId",
+									"value": "The id of the character you want to associate"
+								}
+							]
+						},
+						"description": "This method creates an association between the movie table and the characters table, for this you need to give the id of the movie in movieId path variable and give the id of the character in the charId path variable, this will create the association automatically."
+					},
+					"response": [
+						{
+							"name": "Response: association  success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/associate/movie/:movieId/character/:charId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"associate",
+										"movie",
+										":movieId",
+										"character",
+										":charId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "1"
+										},
+										{
+											"key": "charId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-GyTNb71hFSiVKesHoKJdgOyAETI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:24:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"Assiociation created\"\n}"
+						},
+						{
+							"name": "Response: Character id doesn't exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/associate/movie/:movieId/character/:charId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"associate",
+										"movie",
+										":movieId",
+										"character",
+										":charId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "1"
+										},
+										{
+											"key": "charId",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "151"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"97-LHqBSBV1lJSoTcY9i4SX5FFdyFk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:25:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"50\",\n                \"msg\": \"The Character id doesn't exist\",\n                \"param\": \"charId\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Movie-Gender association",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/associate/movie/:movieId/genre/:genreId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"associate",
+								"movie",
+								":movieId",
+								"genre",
+								":genreId"
+							],
+							"variable": [
+								{
+									"key": "movieId",
+									"value": "The id of the movie you want to associate"
+								},
+								{
+									"key": "genreId",
+									"value": "The id of the genre you want to associate"
+								}
+							]
+						},
+						"description": "This method creates an association between the movie table and the genres table, for this you need to give the id of the movie in movieId path variable and give the id of the genre in the charId path variable, this will create the association automatically."
+					},
+					"response": [
+						{
+							"name": "Response: association success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/associate/movie/:movieId/genre/:genreid",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"associate",
+										"movie",
+										":movieId",
+										"genre",
+										":genreid"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "1"
+										},
+										{
+											"key": "genreid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c-GyTNb71hFSiVKesHoKJdgOyAETI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:28:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"data\": \"Assiociation created\"\n}"
+						},
+						{
+							"name": "Response: Genre id doesn't exist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/associate/movie/:movieId/genre/:genreid",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"associate",
+										"movie",
+										":movieId",
+										"genre",
+										":genreid"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "1"
+										},
+										{
+											"key": "genreid",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-gguktupAsCe3JfDBQN0kdfvnHrQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Jun 2021 19:30:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"code\": 400,\n        \"message\": \"Validation Error\",\n        \"data\": [\n            {\n                \"value\": \"2\",\n                \"msg\": \"The Genre id doesn't exist\",\n                \"param\": \"genreId\",\n                \"location\": \"params\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "This operations will create Many to Many relationship between tables, all registered users can execute this operation."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost"
+		},
+		{
+			"key": "token",
+			"value": "You need to get this token by authentication"
+		}
+	]
+}
