@@ -13,7 +13,7 @@ This is a basic API to do operations about character and movies from the Disney'
 
 ### Before start
 ---
-This API uses an third party services for sending emails, so before start i recommend to create an account on SendGrid and generate an API key to the correct usage.
+This API uses an third party services for sending emails, so before start I recommend to create an account on SendGrid and generate an API key to the correct usage.
 
 ### Usage
 ---
@@ -38,7 +38,7 @@ For detailed documentation click [**HERE**](https://documenter.getpostman.com/vi
     POST /auth/register 
 This operation allow to register an user in the database, with this user you can get a token to do operations in the API.
 
-If the registration proccess is successful the api will try to send an email by SendGrid with this format:
+If the registration proccess is successful the API will try to send an email by SendGrid with this format:
 
     to: newUser@registered.com
     from: sender@email.com
