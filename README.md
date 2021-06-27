@@ -38,6 +38,13 @@ For detailed documentation click [**HERE**](https://documenter.getpostman.com/vi
     POST /auth/register 
 This operation allow to register an user in the database, with this user you can get a token to do operations in the API.
 
+If the registration proccess is successful the api will try to send an email by SendGrid with this format:
+
+    to: newUser@registered.com
+    from: sender@email.com
+    subject: "Thanks you to register to my Api!"
+    text: Hi, new user! this email was sended by SendGrid to say thanks you, now you can use the api now
+---
     POST /auth/login
 This operation is used to get a token from an already registered user. To Log In u need the email and the password.
 
